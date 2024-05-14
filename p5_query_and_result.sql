@@ -1,4 +1,5 @@
 DELIMITER //
+DROP FUNCTION IF EXISTS year_diff;
 CREATE FUNCTION year_diff(input_year YEAR)
 RETURNS INT
 NO SQL
@@ -8,7 +9,7 @@ BEGIN
     DECLARE result INT;
     SET now_date = CURDATE();
     SET case_date = MAKEDATE(input_year, 1);
-    SET result = YEAR(now_date) - YEAR(case_date);
+    SET result = TIMESTAMPDIFF(YEAR, MAKEDATE(input_year, 1), CURDATE());
     RETURN result;
 END //
 DELIMITER ;
